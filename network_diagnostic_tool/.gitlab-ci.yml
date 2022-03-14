@@ -1,0 +1,33 @@
+# image: docker:19.03.10
+image: 926487093018.dkr.ecr.us-east-2.amazonaws.com/gl-images:k8s-202007141138 
+
+services:
+  - docker:dind
+
+variables:
+ DOCKER_TLS_CERTDIR: ""  
+ DOCKER_HOST: tcp://localhost:2375
+
+ REPO_PREFIX: ""
+ SVC_NAME: ui
+ PROJECT_NAME: zeus-ui
+
+stages:
+  - push changes
+
+#################################################################
+# Scripts
+#################################################################
+Pushing changes to GH:
+  stage: push changes
+  image: alpine/git:v2.32.0
+  script:
+    - echo "$CI_COMMIT_REF_NAME"
+    - |
+        git config --global user.email "auto_bot@hivecell.com"
+        git config --global user.name "Auto Bot"
+
+        git push https://$GH_TOKEN@github.com/hivecell-io/collection-of-tools.git
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: always
