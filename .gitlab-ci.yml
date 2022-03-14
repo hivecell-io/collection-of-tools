@@ -21,6 +21,8 @@ stages:
 Pushing changes to GH:
   stage: push changes
   image: alpine/git:v2.32.0
+  tags:
+    - zeus
   script:
     - echo "$CI_COMMIT_REF_NAME"
     - |
