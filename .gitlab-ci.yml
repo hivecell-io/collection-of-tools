@@ -30,7 +30,7 @@ Pushing changes to GH:
         git config --global user.name "Auto Bot"
         
         git checkout -b main
-        git push https://$GH_TOKEN@github.com/hivecell-io/collection-of-tools.git --force
+        git push https://$GH_TOKEN@github.com/hivecell-io/collection-of-tools.git
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: always
